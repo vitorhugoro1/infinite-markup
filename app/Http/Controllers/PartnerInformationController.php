@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\ProcessMarkupFileData;
+use App\Actions\StorePartnerInformation;
 use App\Models\Partner;
 use App\Models\PartnerInformation;
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePartnerInformationRequest;
 
 class PartnerInformationController extends Controller
 {
@@ -38,13 +41,20 @@ class PartnerInformationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $inputs = $request->validate([
-            'file' => 'required|file|mimes:xml',
-            'partner' => 'required|integer',
-            'async' => 'boolean'
-        ]);
+    public function store(
+        StorePartnerInformationRequest $request,
+        StorePartnerInformation $storePartnerInformation,
+        ProcessMarkupFileData $processMarkupFileData
+    ) {
+        $partnerInformation = $storePartnerInformation->store($request->validated(), $request->user());
+
+        if ($request->get('async')) {
+            $processMarkupFileData->onQueue()->execute($partnerInformation);
+        }
+
+        if (!$request->get('async')) {
+            $processMarkupFileData->execute($partnerInformation);
+        }
 
         return redirect()->route('partner-information.index');
     }

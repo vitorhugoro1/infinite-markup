@@ -17,6 +17,11 @@ class PartnerInformation extends Model
         'user_id', 'partner_id', 'filename', 'status', 'processed_data', 'processed_at'
     ];
 
+    protected $casts = [
+        'processed_at' => 'datetime',
+        'processed_data' => 'array'
+    ];
+
     public function getStatusAttribute($value)
     {
         return new PartnerInformationStatusEnum($value);
