@@ -14,7 +14,9 @@ class PartnerController extends Controller
      */
     public function index()
     {
-        //
+        return view('partner.index', [
+            'partners' => Partner::paginate()
+        ]);
     }
 
     /**
@@ -24,7 +26,7 @@ class PartnerController extends Controller
      */
     public function create()
     {
-        //
+        return view('partner.create');
     }
 
     /**
@@ -35,51 +37,12 @@ class PartnerController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $inputs = $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Partner  $partner
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Partner $partner)
-    {
-        //
-    }
+        Partner::create($inputs);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Partner  $partner
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Partner $partner)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Partner  $partner
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Partner $partner)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Partner  $partner
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Partner $partner)
-    {
-        //
+        return redirect()->route('partner.index');
     }
 }
