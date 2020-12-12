@@ -16,7 +16,7 @@ class PartnerInformationController extends Controller
     public function index()
     {
         return view('partner-information.index', [
-            'informations' => PartnerInformation::where('user_id', auth()->user())->paginate()
+            'informations' => PartnerInformation::where('user_id', auth()->id())->paginate()
         ]);
     }
 

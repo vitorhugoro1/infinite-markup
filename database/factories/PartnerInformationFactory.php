@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Partner;
 use App\Models\PartnerInformation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -24,10 +25,11 @@ class PartnerInformationFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
+            'partner_id' => Partner::factory(),
             'filename' => "{$this->faker->company}.xml",
             'is_processed' => false,
-            'processed_data' => [],
-            'processed_at' => $this->faker->dateTimeBetween('now', '+10 days')
+            'processed_data' => null,
+            'processed_at' => null
         ];
     }
 }

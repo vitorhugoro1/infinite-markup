@@ -40,7 +40,7 @@
                         @forelse ($informations as $information)
                         <tr>
                             <td class="px-6 py-4 whitespace-no-wrap">
-                                {{ $information->file_name }}
+                                {{ $information->filename }}
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap">
                                 {{ $information->partner->name }}
