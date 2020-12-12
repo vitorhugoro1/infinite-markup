@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Partner;
 use App\Models\PartnerInformation;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,9 @@ class PartnerInformationController extends Controller
      */
     public function create()
     {
-        //
+        return view('partner-information.create', [
+            'partners' => Partner::all(['id', 'name'])
+        ]);
     }
 
     /**
@@ -37,51 +40,12 @@ class PartnerInformationController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'data' => 'required|file|mimes:xml',
+            'partner' => 'required|integer',
+            'async' => 'required|boolean'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PartnerInformation  $partnerInformation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PartnerInformation $partnerInformation)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PartnerInformation  $partnerInformation
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PartnerInformation $partnerInformation)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PartnerInformation  $partnerInformation
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, PartnerInformation $partnerInformation)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\PartnerInformation  $partnerInformation
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(PartnerInformation $partnerInformation)
-    {
-        //
+        return redirect('partner-information.index');
     }
 }

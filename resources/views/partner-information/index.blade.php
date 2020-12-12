@@ -1,8 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Partner Information') }}
-        </h2>
+        <div class="flex justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Partner Information') }}
+            </h2>
+
+            <a href="{{ route('partner-information.create') }}"
+                class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
+                {{ __('Upload Partner Information') }}
+            </a>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -13,7 +20,11 @@
                         <tr>
                             <th
                                 class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                File Name
+                                Filename
+                            </th>
+                            <th
+                                class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                Partner
                             </th>
                             <th
                                 class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
@@ -21,45 +32,29 @@
                             </th>
                             <th
                                 class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Processed?
-                            </th>
-                            <th
-                                class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 Processed At
                             </th>
-                            <th
-                                class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Created At
-                            </th>
-                            <th class="px-6 py-3 bg-gray-50"></th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse ($informations as $information)
                         <tr>
                             <td class="px-6 py-4 whitespace-no-wrap">
-                                <div class="font-semibold">
-                                    {{ $information->subject }}
-                                </div>
+                                {{ $information->file_name }}
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap">
-                                {{ $information->start_at->format('d/m/Y') }}
+                                {{ $information->partner->name }}
                             </td>
                             <td class="px-6 py-4 whitespace-no-wrap">
-                                {{ $information->expiration_at->format('d/m/Y') }}
+                                {{ $information->author->name }}
                             </td>
-                            <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                                <a href="{{ route('announcements.show', $information->id) }}"
-                                    class="text-indigo-600 hover:text-indigo-900 mr-2">View</a>
-                                <a href="{{ route('announcements.edit', $information->id) }}"
-                                    class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
-                                <a wire:click="openDeleteModal({{ $information->id }})" href="#"
-                                    class="text-red-600 hover:text-red-900">Delete</a>
+                            <td class="px-6 py-4 whitespace-no-wrap">
+                                {{ optional($information->processed_at)->format('Y-m-d H:i') }}
                             </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="px-6 py-4 whitespace-no-wrap">
+                            <td colspan="5" class="px-6 py-4 whitespace-no-wrap">
                                 {{ __('Not has Partner Informations.') }}
                             </td>
                         </tr>
