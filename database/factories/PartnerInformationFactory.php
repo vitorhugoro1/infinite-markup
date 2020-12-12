@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enum\PartnerInformationStatusEnum;
 use App\Models\Partner;
 use App\Models\PartnerInformation;
 use App\Models\User;
@@ -27,7 +28,7 @@ class PartnerInformationFactory extends Factory
             'user_id' => User::factory(),
             'partner_id' => Partner::factory(),
             'filename' => "{$this->faker->company}.xml",
-            'is_processed' => false,
+            'status' => (string) PartnerInformationStatusEnum::queued(),
             'processed_data' => null,
             'processed_at' => null
         ];

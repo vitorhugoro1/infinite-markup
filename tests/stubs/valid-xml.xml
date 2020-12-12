@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<people>
+	<person>
+	  <personid>1</personid>
+	  <personname>Name 1</personname>
+	  <phones>
+		<phone>2345678</phone>
+		<phone>1234567</phone>
+	  </phones>
+	</person>
+</people>

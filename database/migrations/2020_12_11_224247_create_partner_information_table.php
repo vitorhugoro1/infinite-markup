@@ -18,7 +18,7 @@ class CreatePartnerInformationTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('partner_id');
             $table->string('filename');
-            $table->boolean('is_processed')->default(false);
+            $table->string('status');
             $table->json('processed_data')->nullable();
             $table->timestamp('processed_at')->nullable();
             $table->timestamps();

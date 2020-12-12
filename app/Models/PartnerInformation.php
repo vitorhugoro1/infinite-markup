@@ -2,16 +2,25 @@
 
 namespace App\Models;
 
+use App\Enum\PartnerInformationStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property \App\Enum\PartnerInformationStatusEnum $status
+ */
 class PartnerInformation extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'partner_id', 'filename', 'is_processed', 'processed_data', 'processed_at'
+        'user_id', 'partner_id', 'filename', 'status', 'processed_data', 'processed_at'
     ];
+
+    public function getStatusAttribute($value)
+    {
+        return new PartnerInformationStatusEnum($value);
+    }
 
     public function author()
     {
