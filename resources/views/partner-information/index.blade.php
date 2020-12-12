@@ -61,6 +61,8 @@
                         @endforelse
                     </tbody>
                 </table>
+
+                {{ $informations->links('layouts.pagination') }}
             </div>
         </div>
     </div>

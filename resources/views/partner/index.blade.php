@@ -42,6 +42,8 @@
                         @endforelse
                     </tbody>
                 </table>
+
+                {{ $partners->links('layouts.pagination') }}
             </div>
         </div>
     </div>
