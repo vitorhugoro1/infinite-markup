@@ -40,12 +40,12 @@ class PartnerInformationController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'data' => 'required|file|mimes:xml',
+        $inputs = $request->validate([
+            'file' => 'required|file|mimes:xml',
             'partner' => 'required|integer',
-            'async' => 'required|boolean'
+            'async' => 'boolean'
         ]);
 
-        return redirect('partner-information.index');
+        return redirect()->route('partner-information.index');
     }
 }

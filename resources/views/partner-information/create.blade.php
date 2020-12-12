@@ -20,14 +20,15 @@
                 </div>
 
                 <div class="mt-5 md:mt-0 md:col-span-2">
-                    <form>
+                    <form method="POST" action="{{ route('partner-information.store') }}" enctype="multipart/form-data">
+                        @csrf
                         <div class="shadow overflow-hidden sm:rounded-md">
                             <div class="px-4 py-5 bg-white sm:p-6">
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-4">
-                                        <x-label for="data" value="{{ __('XML File') }}" />
-                                        <input type="file" accept=".xml" name="data" id="data">
-                                        <x-input-error for="data" class="mt-2" />
+                                        <x-label for="file" value="{{ __('XML File') }}" />
+                                        <input type="file" accept=".xml" name="file" id="file">
+                                        <x-input-error for="file" class="mt-2" />
                                     </div>
                                 </div>
                             </div>
@@ -36,6 +37,7 @@
                                     <div class="col-span-6 sm:col-span-4">
                                         <x-label for="partner" value="{{ __('Partner') }}" />
                                         <select class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" name="partner" id="partner">
+                                                <option value="">{{ __('Select an partner') }}</option>
                                             @forelse ($partners as $partner)
                                                 <option value="{{ $partner->id }}">{{ $partner->name }}</option>
                                             @empty
