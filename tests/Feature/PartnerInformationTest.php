@@ -52,7 +52,7 @@ class PartnerInformationTest extends TestCase
 
         $this->assertDatabaseHas('partner_information', [
             'filename' => $file->hashName(),
-            'original_filename' => $file->getBasename(),
+            'original_filename' => $file->getClientOriginalName(),
             'partner_id' => $partner->id,
             'user_id' => $author->id,
             'status' => (string) PartnerInformationStatusEnum::queued()
@@ -82,7 +82,7 @@ class PartnerInformationTest extends TestCase
 
         $this->assertDatabaseHas('partner_information', [
             'filename' => $file->hashName(),
-            'original_filename' => $file->getBasename(),
+            'original_filename' => $file->getClientOriginalName(),
             'partner_id' => $partner->id,
             'user_id' => $author->id,
             'status' => (string) PartnerInformationStatusEnum::processed()
@@ -125,7 +125,7 @@ class PartnerInformationTest extends TestCase
 
         $this->get(route('partner-information.index'))
             ->assertSee(
-                $informations->first()->filename
+                $informations->first()->original_filename
             );
     }
 
@@ -134,7 +134,7 @@ class PartnerInformationTest extends TestCase
         $informations = PartnerInformation::factory(5)->create();
 
         $this->get(route('partner-information.index'))
-            ->assertDontSee($informations->first()->filename)
+            ->assertDontSee($informations->first()->original_filename)
             ->assertStatus(302);
 
         $this->assertGuest();

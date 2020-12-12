@@ -18,7 +18,7 @@ class StorePartnerInformation
 
         return PartnerInformation::create([
             'filename' => basename($inputs['file']->store('markups')),
-            'original_filename' => $inputs['file']->getBasename(),
+            'original_filename' => $inputs['file']->getClientOriginalName(),
             'user_id' => $user->id,
             'partner_id' => $inputs['partner'],
             'status' => (string) PartnerInformationStatusEnum::queued()

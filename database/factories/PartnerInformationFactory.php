@@ -28,6 +28,7 @@ class PartnerInformationFactory extends Factory
             'user_id' => User::factory(),
             'partner_id' => Partner::factory(),
             'filename' => "{$this->faker->company}.xml",
+            'original_filename' => "{$this->faker->company}.xml",
             'status' => (string) PartnerInformationStatusEnum::queued(),
             'processed_data' => null,
             'processed_at' => null
