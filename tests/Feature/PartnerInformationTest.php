@@ -52,6 +52,7 @@ class PartnerInformationTest extends TestCase
 
         $this->assertDatabaseHas('partner_information', [
             'filename' => $file->hashName(),
+            'original_filename' => $file->getBasename(),
             'partner_id' => $partner->id,
             'user_id' => $author->id,
             'status' => (string) PartnerInformationStatusEnum::queued()
@@ -81,6 +82,7 @@ class PartnerInformationTest extends TestCase
 
         $this->assertDatabaseHas('partner_information', [
             'filename' => $file->hashName(),
+            'original_filename' => $file->getBasename(),
             'partner_id' => $partner->id,
             'user_id' => $author->id,
             'status' => (string) PartnerInformationStatusEnum::processed()
